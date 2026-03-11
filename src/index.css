@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+    --ff-bg: #F7F3EC;
+    --ff-surface: #FFFFFF;
+    --ff-surface-alt: #F3F4F6;
+    --ff-text-primary: #1F2933;
+    --ff-text-secondary: #6B7280;
+    --ff-accent-primary: #F97316;
+    --ff-accent-secondary: #0F766E;
+    --ff-accent-soft: #BEF264;
+  }
+  .ff-dark {
+    color-scheme: dark;
+    --ff-bg: #0B1120;
+    --ff-surface: #020617;
+    --ff-surface-alt: #111827;
+    --ff-text-primary: #E5E7EB;
+    --ff-text-secondary: #9CA3AF;
+  }
+  body {
+    @apply bg-app text-primary antialiased;
+    font-family: theme("fontFamily.display");
+  }
+}
+
+@layer utilities {
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .animate-fade-in-up {
+    animation: fadeInUp 220ms ease-out both;
+  }
+
+  .bg-app {
+    background-color: var(--ff-bg);
+  }
+
+  .bg-surface {
+    background-color: var(--ff-surface);
+  }
+
+  .bg-surface-alt {
+    background-color: var(--ff-surface-alt);
+  }
+
+  .text-primary {
+    color: var(--ff-text-primary);
+  }
+
+  .text-secondary {
+    color: var(--ff-text-secondary);
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-transparent bg-[color:var(--ff-accent-primary)] px-4 py-2 text-sm font-semibold text-[color:var(--ff-surface)] shadow-soft transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
+    --tw-ring-color: var(--ff-accent-primary);
+    --tw-ring-offset-color: var(--ff-surface);
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-[color:var(--ff-accent-secondary)] bg-[color:var(--ff-surface)] px-4 py-2 text-sm font-semibold text-[color:var(--ff-accent-secondary)] shadow-soft transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
+    --tw-ring-color: var(--ff-accent-secondary);
+    --tw-ring-offset-color: var(--ff-surface);
+  }
+
+  .card {
+    @apply rounded-xl border border-slate-200/70 bg-surface text-primary shadow-soft;
+  }
+
+  .input-field {
+    @apply h-11 w-full rounded-lg border border-slate-300 bg-surface px-3 text-sm text-primary shadow-sm outline-none transition placeholder:text-slate-400 focus:border-[color:var(--ff-accent-secondary)] focus:ring-2 focus:ring-[color:var(--ff-accent-soft)];
+  }
+}

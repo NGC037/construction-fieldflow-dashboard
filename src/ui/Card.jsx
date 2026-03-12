@@ -4,7 +4,7 @@ export function Card({ className, ...props }) {
   return (
     <div
       className={cn(
-        "card",
+        "card transition-all duration-200 ease-out",
         className,
       )}
       {...props}

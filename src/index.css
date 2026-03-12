@@ -80,6 +80,6 @@
   }
 
   .input-field {
-    @apply h-11 w-full rounded-lg border border-slate-300 bg-surface px-3 text-sm text-primary shadow-sm outline-none transition placeholder:text-slate-400 focus:border-[color:var(--ff-accent-secondary)] focus:ring-2 focus:ring-[color:var(--ff-accent-soft)];
+    @apply h-11 w-full rounded-lg border border-slate-300 bg-surface px-3 text-sm text-primary shadow-sm outline-none transition-all duration-200 ease-out placeholder:text-slate-400 focus:border-[color:var(--ff-accent-secondary)] focus:ring-2 focus:ring-orange-400;
   }
 }

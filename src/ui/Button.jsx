@@ -8,7 +8,7 @@ export function Button({
   ...props
 }) {
   const base =
-    "inline-flex items-center justify-center gap-2 font-medium transition disabled:pointer-events-none disabled:opacity-60";
+    "inline-flex items-center justify-center gap-2 font-medium transition-all duration-200 ease-out disabled:pointer-events-none disabled:opacity-60";
 
   const variants = {
     primary:

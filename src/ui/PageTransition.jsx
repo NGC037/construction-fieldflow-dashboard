@@ -12,9 +12,11 @@ export function PageTransition({ routeKey, children }) {
   }, [routeKey]);
 
   return (
-    <div key={key} className={phase === "enter" ? "animate-fade-in-up" : ""}>
+    <div
+      key={key}
+      className={phase === "enter" ? "animate-fade-in-up" : ""}
+    >
       {children}
     </div>
   );
 }
-

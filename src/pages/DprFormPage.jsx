@@ -8,6 +8,7 @@ import { Select } from "../ui/Select.jsx";
 import { Textarea } from "../ui/Textarea.jsx";
 import { Button } from "../ui/Button.jsx";
 import { useToast } from "../state/toast/ToastContext.jsx";
+import { useDprs } from "../state/dpr/DprContext.jsx";
 
 function buildErrors(values) {
   const next = {};
@@ -25,6 +26,7 @@ function buildErrors(values) {
 export function DprFormPage() {
   const navigate = useNavigate();
   const { pushToast } = useToast();
+  const { addDpr } = useDprs();
   const [searchParams] = useSearchParams();
   const preselectedProjectId = searchParams.get("projectId") || "";
 
@@ -81,7 +83,35 @@ export function DprFormPage() {
 
     setIsSubmitting(true);
     try {
-      await new Promise((r) => setTimeout(r, 450));
+      const images = await Promise.all(
+        values.images.map(
+          (file) =>
+            new Promise((resolve) => {
+              const reader = new FileReader();
+              reader.onload = () =>
+                resolve({
+                  id: `${file.name}-${file.size}-${file.lastModified}`,
+                  name: file.name,
+                  dataUrl: reader.result,
+                });
+              reader.readAsDataURL(file);
+            }),
+        ),
+      );
+
+      const project = PROJECTS.find((p) => p.id === values.projectId);
+
+      addDpr({
+        id: `${values.projectId}-${values.date}-${Date.now()}`,
+        projectId: values.projectId,
+        projectName: project?.name ?? values.projectId,
+        date: values.date,
+        weather: values.weather,
+        workerCount: Number(values.workerCount),
+        description: values.workDescription.trim(),
+        images,
+      });
+
       pushToast({
         title: "DPR created",
         message: "Your daily progress report was saved successfully.",

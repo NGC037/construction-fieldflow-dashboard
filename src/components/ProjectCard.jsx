@@ -12,8 +12,8 @@ function statusTone(status) {
 
 export function ProjectCard({ project }) {
   return (
-    <Card className="group overflow-hidden transition hover:-translate-y-[2px] hover:shadow-soft">
-      <div className="grid grid-rows-[auto_1fr_auto] gap-3 p-4 bg-surface">
+    <Card className="group bg-white rounded-xl border border-gray-200 p-6 shadow-sm transition-all duration-200 ease-out hover:-translate-y-0.5 hover:shadow-md">
+      <div className="grid grid-rows-[auto_1fr_auto] gap-3">
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
             <p className="text-[11px] font-semibold uppercase tracking-wide text-secondary">
@@ -22,7 +22,9 @@ export function ProjectCard({ project }) {
             <h3 className="mt-1 truncate text-sm font-semibold text-primary">
               {project.name}
             </h3>
-            <p className="mt-1 text-[11px] text-secondary">{project.location}</p>
+            <p className="mt-1 text-[11px] text-secondary">
+              {project.location}
+            </p>
           </div>
           <Badge tone={statusTone(project.status)}>{project.status}</Badge>
         </div>
@@ -32,7 +34,9 @@ export function ProjectCard({ project }) {
             <p className="text-[11px] font-semibold uppercase tracking-wide text-secondary">
               Start
             </p>
-            <p className="mt-1 font-mono text-xs text-primary">{formatDate(project.startDate)}</p>
+            <p className="mt-1 font-mono text-xs text-primary">
+              {formatDate(project.startDate)}
+            </p>
           </div>
           <div className="rounded-lg bg-surface-alt p-2 text-secondary">
             <p className="text-[11px] font-semibold uppercase tracking-wide text-secondary">
@@ -44,7 +48,12 @@ export function ProjectCard({ project }) {
 
         <div className="flex items-center justify-between gap-3 pt-1 text-[11px]">
           <p className="text-secondary">Open detail view &amp; create DPR.</p>
-          <Button as={Link} to={`/projects/${project.id}`} variant="secondary" size="sm">
+          <Button
+            as={Link}
+            to={`/projects/${project.id}`}
+            variant="secondary"
+            size="sm"
+          >
             View details
           </Button>
         </div>
@@ -53,4 +62,3 @@ export function ProjectCard({ project }) {
     </Card>
   );
 }
-

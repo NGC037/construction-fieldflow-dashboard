@@ -11,9 +11,8 @@ function NavItem({ to, label }) {
       to={to}
       className={({ isActive }) =>
         cn(
-          "flex items-center justify-between rounded-xl px-3 py-2 text-sm font-medium transition",
-          "text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-slate-50",
-          isActive ? "bg-slate-100 text-slate-900 dark:bg-slate-800 dark:text-slate-50" : "",
+          "inline-flex items-center rounded-lg px-3 py-1.5 text-sm font-medium text-secondary transition-all duration-200 ease-out hover:bg-surface-alt hover:text-primary",
+          isActive ? "bg-surface-alt text-primary" : "",
         )
       }
       end
@@ -35,7 +34,10 @@ export function AppShell() {
   const initials = useMemo(() => {
     const name = user?.name || user?.email || "U";
     const parts = name.trim().split(/\s+/);
-    return (parts[0]?.[0] || "U").toUpperCase() + (parts[1]?.[0] ? parts[1][0].toUpperCase() : "");
+    return (
+      (parts[0]?.[0] || "U").toUpperCase() +
+      (parts[1]?.[0] ? parts[1][0].toUpperCase() : "")
+    );
   }, [user]);
 
   function onLogout() {
@@ -45,89 +47,75 @@ export function AppShell() {
 
   return (
     <div className="min-h-screen bg-app text-primary">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 py-6 sm:px-6 md:grid-cols-[260px,minmax(0,1fr)] md:gap-8 lg:px-8">
-        <aside className="card flex flex-col gap-4 p-4">
-          <div className="flex items-center justify-between gap-3">
-            <Link to="/projects" className="group flex items-center gap-3">
-              <div className="grid h-10 w-10 place-items-center rounded-lg bg-[color:var(--ff-accent-primary)] text-white shadow-soft group-hover:scale-105 group-active:scale-95 transition">
-                <span className="text-xs font-bold tracking-wide">CF</span>
-              </div>
-              <div className="leading-tight">
-                <p className="text-xs font-semibold uppercase tracking-wide text-secondary">
-                  FieldFlow
-                </p>
-                <p className="text-sm font-semibold text-primary">Construction DPR</p>
-              </div>
-            </Link>
+      <header className="sticky top-0 z-30 border-b border-slate-200 bg-white">
+        <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between px-4 md:px-8">
+          <Link to="/projects" className="flex items-center gap-2">
+            <div className="grid h-9 w-9 place-items-center rounded-lg bg-[color:var(--ff-accent-primary)] text-white shadow-soft">
+              <span className="text-xs font-bold tracking-wide">CF</span>
+            </div>
+            <div className="leading-tight">
+              <p className="text-sm font-semibold text-slate-900">FieldFlow</p>
+              <p className="text-xs text-slate-500">Construction DPR</p>
+            </div>
+          </Link>
+
+          <div className="flex items-center gap-4">
+            <div className="hidden text-sm text-secondary sm:block">
+              Company Name
+            </div>
             <button
               type="button"
-              onClick={() => setThemeState((t) => (t === "dark" ? "light" : "dark"))}
-              className="rounded-lg border border-slate-200 bg-surface-alt px-3 py-1 text-xs font-medium text-secondary shadow-sm transition hover:bg-surface"
+              onClick={() =>
+                setThemeState((t) => (t === "dark" ? "light" : "dark"))
+              }
+              className="rounded-full border border-slate-200 bg-surface-alt p-2 text-slate-500 shadow-sm transition-all duration-200 ease-out hover:bg-surface hover:text-slate-700"
               aria-label="Toggle theme"
-              title="Toggle theme"
             >
-              {theme === "dark" ? "Dark" : "Light"}
+              {theme === "dark" ? "🌙" : "☀️"}
             </button>
-          </div>
-
-          <div className="rounded-lg bg-surface-alt p-3">
-            <div className="flex items-center gap-3">
-              <div className="grid h-10 w-10 place-items-center rounded-lg bg-surface text-primary shadow-sm">
-                <span className="text-sm font-semibold">{initials}</span>
-              </div>
-              <div className="min-w-0 flex-1">
-                <p className="truncate text-sm font-semibold text-primary">
+            <div className="flex items-center gap-2">
+              <div className="hidden text-right text-xs sm:block">
+                <p className="font-semibold text-primary">
                   {user?.name ?? "User"}
                 </p>
-                <p className="truncate text-xs text-secondary">{user?.email}</p>
+                <p className="text-secondary">{user?.email}</p>
               </div>
-            </div>
-            <div className="mt-3 flex gap-2">
-              <Button variant="secondary" size="sm" className="w-full" onClick={onLogout}>
-                Logout
-              </Button>
+              <button
+                type="button"
+                onClick={onLogout}
+                className="grid h-9 w-9 place-items-center rounded-full bg-surface-alt text-sm font-semibold text-primary shadow-sm"
+                aria-label="Logout"
+              >
+                {initials}
+              </button>
             </div>
           </div>
+        </div>
+      </header>
 
-          <nav className="space-y-1">
-            <NavItem to="/projects" label="Projects" />
-            <NavItem to="/dpr/new" label="Create DPR" />
-          </nav>
-
-          <div className="mt-auto rounded-lg bg-surface-alt p-3 text-xs text-secondary">
-            <p className="font-semibold text-primary">Daily Progress Reporting</p>
-            <p className="mt-1">
-              Capture work, workforce, and weather across all active projects.
-            </p>
-          </div>
-        </aside>
-
-        <main className="min-w-0 space-y-4">
-          <div className="flex flex-col justify-between gap-3 rounded-xl bg-surface-alt px-4 py-3 text-sm text-secondary sm:flex-row sm:items-center">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-wide text-secondary">
+      <main className="bg-app">
+        <div className="mx-auto max-w-[1200px] px-6 py-8">
+          <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+            <div className="text-xs text-secondary">
+              <span className="font-semibold uppercase tracking-wide">
                 FieldFlow Console
-              </p>
-              <p className="mt-1 text-sm">
+              </span>
+              <span className="ml-2 text-secondary">
                 Navigate projects, issue DPRs, and monitor field activity.
-              </p>
-            </div>
-            <div className="flex flex-wrap items-center gap-2 text-xs">
-              <span className="rounded-full bg-[color:var(--ff-accent-soft)] px-3 py-1 font-medium text-[color:var(--ff-text-primary)]">
-                Shift · {new Date().toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" })}
-              </span>
-              <span className="rounded-full border border-slate-200 px-3 py-1 text-secondary">
-                © {new Date().getFullYear()} Field Ops
               </span>
             </div>
+            <nav className="flex flex-wrap items-center gap-1.5 text-sm">
+              <NavItem to="/projects" label="Projects" />
+              <NavItem to="/dpr/new" label="Create DPR" />
+              <NavItem to="/dprs" label="DPR history" />
+            </nav>
           </div>
 
-          <div className="card p-4 sm:p-5">
+          <div className="space-y-8">
             <Outlet />
           </div>
-        </main>
-      </div>
+        </div>
+      </main>
     </div>
   );
 }
-

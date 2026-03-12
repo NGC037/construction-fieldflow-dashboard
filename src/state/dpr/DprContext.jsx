@@ -1,4 +1,5 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+/* eslint-disable react-refresh/only-export-components */
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { PROJECTS } from "../../constants/projects.js";
 
 const STORAGE_KEY = "fieldflow_dprs";
@@ -32,13 +33,13 @@ export function DprProvider({ children }) {
     writeStoredDprs(dprs);
   }, [dprs]);
 
-  function addDpr(input) {
+  const addDpr = useCallback((input) => {
     setDprs((prev) => [...prev, input]);
-  }
+  }, []);
 
-  function getDprById(id) {
+  const getDprById = useCallback((id) => {
     return dprs.find((d) => d.id === id) || null;
-  }
+  }, [dprs]);
 
   const stats = useMemo(() => {
     const total = dprs.length;
@@ -52,7 +53,7 @@ export function DprProvider({ children }) {
       getDprById,
       stats,
     }),
-    [dprs, stats],
+    [dprs, stats, addDpr, getDprById],
   );
 
   return <DprContext.Provider value={value}>{children}</DprContext.Provider>;

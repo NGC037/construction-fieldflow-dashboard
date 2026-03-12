@@ -43,6 +43,15 @@
     animation: fadeInUp 220ms ease-out both;
   }
 
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(-15px);
+    }
+    50% {
+      transform: translateY(15px);
+    }
+  }
+
   .bg-app {
     background-color: var(--ff-bg);
   }

@@ -40,7 +40,7 @@ export function ProjectDetailPage() {
           <Button variant="secondary" onClick={() => navigate(-1)}>
             Back
           </Button>
-          <Button as={Link} to={`/dpr/new?projectId=${encodeURIComponent(project.id)}`}>
+          <Button as={Link} to={`/projects/${project.id}/dpr`}>
             Create DPR
           </Button>
         </div>
@@ -78,7 +78,7 @@ export function ProjectDetailPage() {
           <p className="mt-3 text-sm text-secondary">
             Create a DPR entry for today’s work and attach up to 3 site images.
           </p>
-          <Button as={Link} to={`/dpr/new?projectId=${encodeURIComponent(project.id)}`} className="mt-4 w-full">
+          <Button as={Link} to={`/projects/${project.id}/dpr`} className="mt-4 w-full">
             Create DPR
           </Button>
           <Button as={Link} to="/projects" variant="secondary" className="mt-2 w-full">
